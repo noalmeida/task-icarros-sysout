@@ -22,7 +22,15 @@ public class Media {
 		System.out.println("Poderia dizer qual foi a sua quarta nota? digite o numero de sua nota: ");
 		Nota4 = s.nextInt();
 		Media = (Nota1 + Nota2 + Nota3 + Nota4) / 4;
-		System.out.printf("A média das suas notas foram : %d" , Media);
+		System.out.printf("Olá, %s, a média das suas notas foram : %d" , nomeAluno, Media);
+		
+		if ( Media < 5 ) {
+			System.out.println(" , Aluno Reprovado");
+		} else if ( Media == 5 ) {
+			System.out.println(" , Aluno em Recuperação");
+		} else {
+			System.out.println(" , Aluno está Aprovado! ");
+		}
 
 		
 
