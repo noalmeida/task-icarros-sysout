@@ -9,9 +9,7 @@ public class ProcessaNotas {
 		Scanner s = new Scanner(System.in);
 
 		for (int count = 0; count < 4; count++) {
-			int firtNumber, secondNumer;
-			String nameInsert;
-
+		
 			String[] students = new String[5];
 
 			System.out.println("Poderia nos informar seu nome?");
