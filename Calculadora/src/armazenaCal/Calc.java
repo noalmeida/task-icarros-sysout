@@ -90,7 +90,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_1 = new JButton("8");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "8");
 			}
 		});
@@ -100,7 +99,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_2 = new JButton("9");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "9");
 			}
 		});
@@ -110,7 +108,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_3 = new JButton("4");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "4");
 			}
 		});
@@ -120,7 +117,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_4 = new JButton("5");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "5");
 			}
 		});
@@ -130,7 +126,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_5 = new JButton("6");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "6");
 			}
 		});
@@ -140,7 +135,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_6 = new JButton("1");
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "1");
 			}
 		});
@@ -150,7 +144,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_7 = new JButton("2");
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "2");
 			}
 		});
@@ -160,7 +153,6 @@ public class Calc extends JFrame {
 		JButton btnNewButton_8 = new JButton("3");
 		btnNewButton_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
 				textResult.setText(textResult.getText() + "3");
 			}
 		});
@@ -170,8 +162,18 @@ public class Calc extends JFrame {
 		JButton btnNewButton_9 = new JButton("0");
 		btnNewButton_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textResult.setText("");
+				btnNewButton_9.setEnabled(true);
 				textResult.setText(textResult.getText() + "0");
+				char[] charrestul = textResult.getText().toCharArray();
+		
+	//parei aqui. duvida para restringir a quantidade de 0, no sentido de nao impedir digitar 0 em outra ocasiao. mas impedir caso seja
+				//dois zeros seguidos.
+//					if (String.valueOf(charrestul[0]).equals("0") && textResult.getText().equals(0)) {
+//						textResult.getText();
+//						
+//					}
+
+
 			}
 		});
 		btnNewButton_9.setBounds(25, 244, 124, 32);

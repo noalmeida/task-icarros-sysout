@@ -14,6 +14,18 @@ public class ProcessaArrayList {
 
 		ArrayList<String> registry = new ArrayList<>();
 
+		ArrayList<String> nomeClient = new ArrayList<>();
+
+		ArrayList<String> emailClient = new ArrayList<>();
+		
+		ArrayList<String> idadeClient = new ArrayList<>();
+		
+		String nomeClientAtt ="";
+		String emailClientAtt ="";
+		String idadeClientAtt ="";
+		
+	
+
 		menuPanel();
 
 		switch (choise) {
@@ -21,29 +33,31 @@ public class ProcessaArrayList {
 		case 1:
 
 			System.out.println("Cadastro | para cadastrar, entre com seu nome primeiramente: ");
-			registry.add(s.nextLine());
+			
+			nomeClient.add(s.nextLine());
 			System.out.println("Cadastro |  para cadastrar, entre com seu email: ");
-			registry.add(s.nextLine());
+			emailClient.add(s.nextLine());
 			System.out.println("Cadastro |  para cadastrar, entre com sua idade: ");
-			registry.add(s.nextLine());
-			System.out.println("Cadastro |  Obrigado pelas informações! "
-					+ "Deseja realizar outro cadastro? Se sim, digite : Y, se não: N");
+			idadeClient.add(s.nextLine());
+			System.out.println("Cadastro |  Obrigado pelas informaÃ§Ãµes! "
+					+ "Deseja realizar outro cadastro? Se sim, digite : Y, se nÃ£o: N");
 			response = s.nextLine();
-			reciveData.addAll(0, registry);
-			System.out.println(reciveData);
+
+		
 
 			for (int i = 1; i < 10; i++) {
 				if (response.equals("Y")) {
 					System.out.println("Cadastro | para cadastrar, entre com seu nome primeiramente: ");
-					registry.add(s.nextLine());
+					nomeClient.add(s.nextLine());
 					System.out.println("Cadastro |  para cadastrar, entre com seu email: ");
-					registry.add(s.nextLine());
+					emailClient.add(s.nextLine());
 					System.out.println("Cadastro |  para cadastrar, entre com sua idade: ");
-					registry.add(s.nextLine());
-					System.out.println("Cadastro |  Obrigado pelas informações! "
-							+ "Deseja realizar outro cadastro? Se sim, digite : Y, se não: N");
+					idadeClient.add(s.nextLine());
+					System.out.println("Cadastro |  Obrigado pelas informaÃ§Ãµes! "
+							+ "Deseja realizar outro cadastro? Se sim, digite : Y, se nÃ£o: N");
 					response = s.nextLine();
-					reciveData.addAll(registry);
+
+				
 
 
 				} else {
@@ -54,29 +68,31 @@ public class ProcessaArrayList {
 					case 1:
 
 						System.out.println("Cadastro | para cadastrar, entre com seu nome primeiramente: ");
-						registry.add(s.nextLine());
+						nomeClient.add(s.nextLine());
 						System.out.println("Cadastro |  para cadastrar, entre com seu email: ");
-						registry.add(s.nextLine());
+						emailClient.add(s.nextLine());
 						System.out.println("Cadastro |  para cadastrar, entre com sua idade: ");
-						registry.add(s.nextLine());
-						System.out.println("Cadastro |  Obrigado pelas informações! "
-								+ "Deseja realizar outro cadastro? Se sim, digite : Y, se não: N");
+						idadeClient.add(s.nextLine());
+						System.out.println("Cadastro |  Obrigado pelas informaÃ§Ãµes! "
+								+ "Deseja realizar outro cadastro? Se sim, digite : Y, se nÃ£o: N");
 						response = s.nextLine();
-						reciveData.addAll(registry);
+	
+					
 			
 
 						for (int a = 1; a < 4; a++) {
 							if (response.equals("Y")) {
 								System.out.println("Cadastro | para cadastrar, entre com seu nome primeiramente: ");
-								registry.add(s.nextLine());
+								nomeClient.add(s.nextLine());
 								System.out.println("Cadastro |  para cadastrar, entre com seu email: ");
-								registry.add(s.nextLine());
+								emailClient.add(s.nextLine());
 								System.out.println("Cadastro |  para cadastrar, entre com sua idade: ");
-								registry.add(s.nextLine());
-								System.out.println("Cadastro |  Obrigado pelas informações! "
-										+ "Deseja realizar outro cadastro? Se sim, digite : Y, se não: N");
+								idadeClient.add(s.nextLine());
+								System.out.println("Cadastro |  Obrigado pelas informaÃ§Ãµes! "
+										+ "Deseja realizar outro cadastro? Se sim, digite : Y, se nÃ£o: N");
 								response = s.nextLine();
-								reciveData.addAll(registry);
+			
+							
 
 							} else {
 								menuPanel();
@@ -87,64 +103,80 @@ public class ProcessaArrayList {
 
 					case 2:
 
-						System.out.println("Entre com um número desejado para verificar registro:  ");
+						System.out.println("Entre com um nÃºmero desejado para verificar registro:  ");
 						reciveNumberIndex = s.nextInt();
 						System.out.println("Retornando index referente..");
-						if (!reciveData.get(reciveNumberIndex).isEmpty()) {
-							System.out.println(reciveData.get(reciveNumberIndex));
+						if (!nomeClient.get(reciveNumberIndex).isEmpty()) {
+							System.out.println("nome: "+ nomeClient.get(reciveNumberIndex) +" | email: "
+						+emailClient.get(reciveNumberIndex)+" | idade: "+idadeClient.get(reciveNumberIndex) );
 						} else {
-							System.out.println("Não contem registros com esse index!");
+							System.out.println("NÃ£o contem registros com esse index!");
 						}
 						break;
-
 					case 3:
 
-						System.out.println("Consultando as informações...");
-						System.out.println(reciveData);
+						System.out.println("Consultando as informaÃ§Ãµes...");
+						
+						for(int i1 = 0 ; i1 < nomeClient.size(); i1++ ) {
+							System.out.println("nome: "+ nomeClient.get(i1) +" | email: "
+									+emailClient.get(i1)+" | idade: "+idadeClient.get(i1) + "\n" +
+									"-------------------------------------------------------------");
+						}
 
 						break;
-					case 4:
 
-						System.out.println("Entre com um número desejado para excluir index de conteudo:  ");
+					case 4:
+						  
+						System.out.println("Entre com index para exclusÃ£o");
 						reciveNumberIndex = s.nextInt();
-						System.out.println("Excluindo index referente..");
-						if (!reciveData.get(reciveNumberIndex).isEmpty()) {
-							System.out.println(reciveData.remove(reciveNumberIndex));
-							System.out.println("Removido!");
-						} else {
-							System.out.println("Não contem registros com esse index!");
+						if(reciveNumberIndex < nomeClient.size()) {
+							System.out.println("Excluindo registro..");
+							
+								System.out.println("nome: "+ nomeClient.remove(reciveNumberIndex) +" | email: "
+										+emailClient.remove(reciveNumberIndex)+" | idade: "+idadeClient.remove(reciveNumberIndex) + "\n" +
+										"-------------------------------------------------------------");
+							
+						}else {
+							System.out.println("Numero de index nÃ£o existente na lista.");
 						}
 						break;
-
+						
 					case 5:
 
-						System.out
-								.println("Entre com um número desejado para modificar/atualizar index de conteudo:  ");
+
+						System.out.println("Entre com um nÃºmero desejado para modificar/atualizar index de conteudo:  ");
 						reciveNumberIndex = s.nextInt();
 
 						try {
-							if (reciveData.size() > reciveNumberIndex) {
-								String registry2 = null;
-								System.out.println("Inserir nome: ");
-								registry2.split(" ");
-								registry2 = s.nextLine();
-								System.out.println("Inserir email: ");
-								registry2 = s.nextLine();
-								System.out.println("Inserir idade: ");
-								registry2 = s.nextLine();
-								reciveData.set(reciveNumberIndex, registry2);
+							if (nomeClient.size() > reciveNumberIndex) {
+						
+								s.nextLine();
+								System.out.println("Inserir novo nome: ");
+								nomeClientAtt = s.nextLine();
+	
+								System.out.println("Inserir novo email: ");
+								emailClientAtt = s.nextLine();
+								System.out.println("Inserir nova idade: ");
+								idadeClientAtt= s.nextLine();
+								nomeClient.set(reciveNumberIndex, nomeClientAtt );
+								emailClient.set(reciveNumberIndex, emailClientAtt );
+								idadeClient.set(reciveNumberIndex, idadeClientAtt );
+								System.out.println("Retornando novo registro referente ao index colocado...");
+								System.out.println("nome: "+ nomeClient.get(reciveNumberIndex) +" | email: "
+										+emailClient.get(reciveNumberIndex)+" | idade: "+idadeClient.get(reciveNumberIndex) + "\n" +
+										"-------------------------------------------------------------");
 
 								System.out.println("Atualizado!");
+							} else {
+								System.out.println("A lista Esta vazia");
 							}
 						} catch (Exception err) {
-							System.out.printf("Lista sem registros, vazia! erro > ", err);
 
 						}
-
 						break;
 
 					default:
-						System.out.println("Não existem alternativas para este numero escolhido =( ");
+						System.out.println("NÃ£o existem alternativas para este numero escolhido =( ");
 
 					}
 
@@ -154,51 +186,70 @@ public class ProcessaArrayList {
 
 		case 2:
 
-			System.out.println("Entre com um número desejado para verificar registro:  ");
+			System.out.println("Entre com um nÃºmero desejado para verificar registro:  ");
 			reciveNumberIndex = s.nextInt();
 			System.out.println("Retornando index referente..");
-			if (!reciveData.get(reciveNumberIndex).isEmpty()) {
-				System.out.println(reciveData.get(reciveNumberIndex));
+			if (!nomeClient.get(reciveNumberIndex).isEmpty()) {
+				System.out.println("nome: "+ nomeClient.get(reciveNumberIndex) +" | email: "
+			+emailClient.get(reciveNumberIndex)+" | idade: "+idadeClient.get(reciveNumberIndex) );
 			} else {
-				System.out.println("Não contem registros com esse index!");
+				System.out.println("NÃ£o contem registros com esse index!");
 			}
 			break;
 
 		case 3:
 
-			System.out.println("Consultando as informações...");
-			System.out.println(reciveData);
+			System.out.println("Consultando as informaÃ§Ãµes...");
+			
+			for(int i1 = 0 ; i1 < nomeClient.size(); i1++ ) {
+				System.out.println("nome: "+ nomeClient.get(i1) +" | email: "
+						+emailClient.get(i1)+" | idade: "+idadeClient.get(i1) + "\n" +
+						"-------------------------------------------------------------");
+			}
 
 			break;
 		case 4:
-
-			System.out.println("Entre com um número desejado para excluir index de conteudo:  ");
+  
+			System.out.println("Entre com index para exclusÃ£o");
 			reciveNumberIndex = s.nextInt();
-			System.out.println("Excluindo index referente..");
-			if (!reciveData.get(reciveNumberIndex).isEmpty()) {
-				System.out.println(reciveData.remove(reciveNumberIndex));
-				System.out.println("Removido!");
-			} else {
-				System.out.println("Não contem registros com esse index!");
+			if(reciveNumberIndex < nomeClient.size()) {
+				System.out.println("Excluindo registro..");
+				
+					System.out.println("nome: "+ nomeClient.remove(reciveNumberIndex) +" | email: "
+							+emailClient.remove(reciveNumberIndex)+" | idade: "+idadeClient.remove(reciveNumberIndex) + "\n" +
+							"-------------------------------------------------------------");
+				
+			}else {
+				System.out.println("Numero de index nÃ£o existente na lista.");
 			}
 			break;
+			
 
 		case 5:
 
-			System.out.println("Entre com um número desejado para modificar/atualizar index de conteudo:  ");
+			System.out.println("Entre com um nÃºmero desejado para modificar/atualizar index de conteudo:  ");
 			reciveNumberIndex = s.nextInt();
 
 			try {
-				if (reciveData.size() > reciveNumberIndex) {
-					System.out.println("Inserir nome: ");
-					String registry2 = null;
-					registry2.split(" ");
-					registry2 = s.nextLine();
-					System.out.println("Inserir email: ");
-					registry2 = s.nextLine();
-					System.out.println("Inserir idade: ");
-					registry2 = s.nextLine();
-					reciveData.set(reciveNumberIndex, registry2);
+				if (nomeClient.size() > reciveNumberIndex) {
+			
+					s.nextLine();
+					System.out.println("Inserir novo nome: ");
+	
+					
+					nomeClientAtt = s.nextLine();
+	   
+					System.out.println("Inserir novo email: ");
+					emailClientAtt = s.nextLine();
+					System.out.println("Inserir nova idade: ");
+					idadeClientAtt= s.nextLine();
+					nomeClient.set(reciveNumberIndex, nomeClientAtt );
+					emailClient.set(reciveNumberIndex, emailClientAtt );
+					idadeClient.set(reciveNumberIndex, idadeClientAtt );
+					System.out.println("Retornando novo registro referente ao index colocado...");
+					System.out.println("nome: "+ nomeClient.get(reciveNumberIndex) +" | email: "
+							+emailClient.get(reciveNumberIndex)+" | idade: "+idadeClient.get(reciveNumberIndex) + "\n" +
+							"-------------------------------------------------------------");
 
 					System.out.println("Atualizado!");
 				} else {
@@ -210,7 +261,7 @@ public class ProcessaArrayList {
 			break;
 
 		default:
-			System.out.println("Não existem alternativas para este numero escolhido =( ");
+			System.out.println("Nï¿½o existem alternativas para este numero escolhido =( ");
 		}
 
 		s.close();
@@ -218,13 +269,14 @@ public class ProcessaArrayList {
 
 	private static void menuPanel() {
 
-		System.out.println("Olá seja bem vindo(a). Veja as opções e escolha segundo seu desejo");
+		System.out.println("OlÃ¡ seja bem vindo(a). Veja as opÃ§Ãµes e escolha segundo seu desejo");
 		System.out.println("-------------------------------------------------------------");
-		System.out.println("\nCadastro digite: 1.\nConsulta: digite 2.\nVisualização: digite 3.\n"
-				+ "Exclusão: digite 4.\nModificar/Atualizar: digite 5.\n");
+		System.out.println("\nCadastro digite: 1.\nConsulta: digite 2.\nVisualizaÃ§Ã£o: digite 3.\n"
+				+ "ExclusÃ£o: digite 4.\nModificar/Atualizar: digite 5.\n");
 		System.out.println("-------------------------------------------------------------");
-
+	
 		choise = s.nextInt();
+		
 		s.nextLine();
 	}
 
