@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JList;
 
 public class History extends JFrame {
 
@@ -47,26 +48,41 @@ public class History extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 11, 289, 212);
-		contentPane.add(textArea);
+		String[] vt = new String[6];
+		
+		
+		
 	
 		
 	
-		  File fp = new File("d:\\calc.txt");
+		
+	
+		  File fp = new File("d:\\history.txt");
 		  FileReader fr = new FileReader(fp);
 		  BufferedReader br = new BufferedReader(fr);
 		  
 		  ArrayList<String> lines = new ArrayList<>();
 		  
+		  
 		  String line;
 		  
 		  while((line = br.readLine()) != null) { 
+			  System.out.println("entrei aqui1");
 			  lines.add(line + "\n");
-			  textArea.setText(String.join(",", lines));
+			  int count = 0;
+			  for (int i1 = 0; i1 < lines.size(); i1++ ) {
+				  count++;
+				  vt[count] = lines.get(i1);
+				  System.out.println("entrei aqui");
+				  System.out.println(i1);
+			  }
+			 
 			  
 		  }
+		    JList list = new JList(vt);
+			list.setBounds(69, 46, 232, 159);
+			contentPane.add(list);
+			System.out.println(vt);
 
 		  fr.close();
 		 

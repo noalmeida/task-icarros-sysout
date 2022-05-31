@@ -8,7 +8,8 @@ public class Agenda {
 		sintaxeBanco.conectar();
 		
 		if(sintaxeBanco.isConnected()) {
-			sintaxeBanco.listaFiltros();
+			//sintaxeBanco.listaFiltros();
+			sintaxeBanco.inserirArray();
 			System.out.println("conexão do Banco realizada com sucesso");
 			
 		}
