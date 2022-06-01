@@ -1,11 +1,12 @@
 package app;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		
 		
@@ -25,7 +26,9 @@ public class Main {
 			  menu.callMenu();
 			  Scanner leitor = new Scanner(System.in);
 			  opcao = leitor.nextLine();
-			  cases.callCase(opcao);
+			 
+				cases.callCase(opcao);
+			
 
          
 
