@@ -58,7 +58,7 @@ public class GerenciaLocadora extends JFrame {
 			}
 		));
 		
-		JLabel lblNewLabel = ceinew JLabel("Sistema Loca\u00E7\u00E3o de filmes");
+		JLabel lblNewLabel =  new JLabel("Sistema Loca\u00E7\u00E3o de filmes");
 		lblNewLabel.setBounds(68, 22, 175, 14);
 		contentPane.add(lblNewLabel);
 	}
