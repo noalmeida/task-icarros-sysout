@@ -63,6 +63,17 @@ public class Validacoes {
 	        }
 	        
 	    }
+	    
+		public static boolean isValidSaldo(double saldo) {
+			if (saldo > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+		
+		
 	 }
 	    
 	    

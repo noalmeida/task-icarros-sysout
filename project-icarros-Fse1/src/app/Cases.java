@@ -4,13 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.json.simple.parser.ParseException;
+
 import Impl.Methods;
 
 
 public class Cases {
 	Methods methods = new Methods();
 
-	public void callCase (String opcaoRecieve) throws IOException {
+	public void callCase (String opcaoRecieve) throws IOException, ParseException {
 		
 		switch(opcaoRecieve) {
 		case "1": 

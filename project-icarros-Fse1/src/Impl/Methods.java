@@ -1,5 +1,4 @@
 package Impl;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import model.Cliente;
 import model.Conta;
@@ -19,13 +21,14 @@ import validacoes.Validacoes;
 
 public class Methods extends Validacoes {
 
-	Scanner leitor = new Scanner(System.in);
 	List<Cliente> client = new ArrayList<>();
 	List<Conta> conta = new ArrayList<>();
-	Cliente clientAtrib = new Cliente();
-	Conta clientCont = new Conta();
 
 	public void callCadastrar() {
+		Scanner leitor = new Scanner(System.in);
+	
+		Cliente clientAtrib = new Cliente();
+		Conta clientCont = new Conta();
 
 		System.out.println("Qual seu nome:");
 		clientAtrib.nome = leitor.nextLine();
@@ -44,7 +47,7 @@ public class Methods extends Validacoes {
 		}
 
 		clientAtrib.email = emailRec;
-
+        //adicionando a instancia de clientes e seus atributos capturados
 		client.add(clientAtrib);
 
 		System.out.println("Qual numero da sua agência:");
@@ -61,14 +64,24 @@ public class Methods extends Validacoes {
 			System.out.println("Por favor. Verifique o numero da conta");
 			clientContaRecv = clientCont.conta = leitor.nextLine();
 		}
+		
 		System.out.println("Qual é o seu saldo:");
-		clientCont.saldo = Double.valueOf(leitor.nextLine());
+		double clientContaRecive = clientCont.saldo = leitor.nextFloat();
+		while (!isValidSaldo(clientContaRecive)) {
+			System.out.println("Por favor, digite um saldo válido");
+			clientContaRecive = clientCont.saldo = leitor.nextFloat();
+		}
+		
+	
+		 //adicionando a instancia de Conta e seus atributos capturados
 		conta.add(clientCont);
 
 	}
 
 	public void callListClient() {
+
 		if (client.size() != -1) {
+			
 
 			System.out.println("Retornando a lista de clientes");
 
@@ -83,15 +96,23 @@ public class Methods extends Validacoes {
 	}
 
 	public void callGravarDados() throws FileNotFoundException, UnsupportedEncodingException {
-		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("d:\\dadosclient.txt"), "UTF-8");
+		OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("d:\\dadosclient.json"), "UTF-8");
 		BufferedWriter bufWriter = new BufferedWriter(writer);
+		JSONObject jsonObject = new JSONObject();
 
 		if (client.size() != -1) {
 
 			System.out.println("Gravando os dados em umarquivo");
 			for (int i = 0; i < client.size(); i++) {
 				try {
-					bufWriter.write(client.get(i).toString() + " Conta " + conta.get(i));
+					jsonObject.put("nome", client.get(i).nome);
+					jsonObject.put("email", client.get(i).email);
+					jsonObject.put("telefone", client.get(i).telefone);
+					jsonObject.put("agencia", conta.get(i).ag);
+					jsonObject.put("conta", conta.get(i).conta);
+					jsonObject.put("saldo", conta.get(i).saldo);
+					//bufWriter.write(client.get(i).toString() + " Conta " + conta.get(i));
+					bufWriter.write(jsonObject.toJSONString());
 					bufWriter.newLine();
 
 				} catch (IOException e1) {
@@ -100,7 +121,7 @@ public class Methods extends Validacoes {
 				}
 
 			}
-			System.out.println("Salvo em d:\\dadosclient.txt");
+			System.out.println("Salvo em d:\\dadosclient.json");
 			try {
 				bufWriter.close();
 			} catch (IOException e1) {
@@ -116,23 +137,56 @@ public class Methods extends Validacoes {
 
 	}
 
-	public void callConsultaArquivo() throws IOException {
-		ArrayList<String> lines = new ArrayList<>();
+	public void callConsultaArquivo() throws IOException, ParseException {
 
-		File fp = new File("d:\\dadosclient.txt");
-		FileReader fr = new FileReader(fp);
-		BufferedReader br = new BufferedReader(fr);
-		String line;
+		BufferedReader br = null;
+		JSONParser parser = new JSONParser();
+		try {
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader("d:\\dadosclient.json"));
 
-		while ((line = br.readLine()) != null) {
-			System.out.println("Consulta arquivo:.");
-			lines.add(line + "\n");
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println("{ Cliente: \t" + sCurrentLine + " }");
 
-			System.out.println(String.join("", lines));
+				Object obj;
+				try {
+					obj = parser.parse(sCurrentLine);
+					JSONObject jsonObject = (JSONObject) obj;
 
+
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
-		fr.close();
-
 	}
-
+	
 }
+
+		
+		
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+
