@@ -1,15 +1,15 @@
 package imagem;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class FormImagem extends JFrame {
 
@@ -46,7 +46,7 @@ public class FormImagem extends JFrame {
 		lblNewLabel.setBounds(217, 44, 235, 30);
 		contentPane.add(lblNewLabel);
 		
-		String[] paises = {"Brasil", "Italia", "Mexico","Alemanha" };
+		String[] paises = {"brasil", "italia", "mexico","alemanha" };
 		
 		JLabel bandeira = new JLabel("bandeira");
 		bandeira.setBounds(295, 98, 303, 265);
@@ -56,10 +56,19 @@ public class FormImagem extends JFrame {
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// criando variavel para captura de index do array de paises
+				int index = list.getSelectedIndex();
+				String pais =  paises[index];
+				//criando uma logica de comparacao da variavel pais com os elementos importados para dentro do pacote
+				bandeira.setIcon(new ImageIcon(getClass().getResource(pais+".png")));
 			}
 		});
 		list.setBounds(45, 97, 187, 281);
 		contentPane.add(list);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(0, 0, 46, 14);
+		contentPane.add(lblNewLabel_1);
 		
 	
 	}
