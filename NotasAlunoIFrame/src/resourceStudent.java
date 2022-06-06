@@ -34,6 +34,7 @@ public class resourceStudent extends JFrame {
 	private JTable table;
 	DefaultTableModel model = new DefaultTableModel();
 	
+	
 
 
 	/**
@@ -164,7 +165,7 @@ public class resourceStudent extends JFrame {
 					row[3] = text_nota1.getText();
 					row[4] = text_nota2.getText();
 					model.addRow(row);
-					historyArr.addAll(Arrays.asList(text_nomeAluno.getText() + text_faltas.getText() + text_nota1.getText() + text_nota2.getText()));
+					historyArr.addAll(Arrays.asList(text_nomeAluno.getText()+","+ text_faltas.getText()+","+ text_nota1.getText() +","+ text_nota2.getText()));
 					text_nomeAluno.setText("");
 					text_faltas.setText("");
 					text_nota1.setText("");
@@ -186,25 +187,33 @@ public class resourceStudent extends JFrame {
 		JButton btnNewButton_3 = new JButton("Relat\u00F3rio");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Relatorio relatorio =  new Relatorio();
-				relatorio.setVisible(rootPaneCheckingEnabled);
-				for (int i = 0; i < historyArr.size(); i++) {
-					try {
-						bufWriter.write(historyArr.get(i).toString());
-						bufWriter.newLine();
-					} catch (IOException e1) {
+				Relatorio relatorio;
+				try {
+					relatorio = new Relatorio();
+					relatorio.setVisible(rootPaneCheckingEnabled);
+					for (int i = 0; i < historyArr.size(); i++) {
+						try {
+							bufWriter.write(historyArr.get(i).toString());
+							bufWriter.newLine();
+						} catch (IOException e1) {
 
+							e1.printStackTrace();
+						}
+
+					}
+					try {
+						bufWriter.close();
+					} catch (IOException e1) {
+						
 						e1.printStackTrace();
 					}
-
-				}
-				try {
-					bufWriter.close();
-				} catch (IOException e1) {
-					
-					e1.printStackTrace();
+				
+				} catch (IOException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
 				}
 			}
+		
 		});
 		btnNewButton_3.setBounds(129, 335, 89, 23);
 		contentPane.add(btnNewButton_3);
