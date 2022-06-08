@@ -150,6 +150,7 @@ public class TelaCadastroInicial extends JFrame {
 		pesquisa_id.setContentAreaFilled(false);
 		pesquisa_id.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pesquisa_id.setBorderPainted(getFocusTraversalKeysEnabled());
 			}
 		});
 		pesquisa_id.setBounds(419, 11, 22, 22);
