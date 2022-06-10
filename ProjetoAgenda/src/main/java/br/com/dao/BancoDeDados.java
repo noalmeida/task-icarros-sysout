@@ -1,3 +1,4 @@
+package br.com.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +11,8 @@ public class BancoDeDados {
 	ArrayList <String> arrayIdLivros = new ArrayList<>();
 	ArrayList <String> arrayNomeLivros = new ArrayList<>();
 	ArrayList <String> arrayTotal = new ArrayList<>();
+	ArrayList<Livros> livros = new ArrayList<Livros>();
+	
 	
 	
 	public void conectar () {
@@ -19,10 +22,12 @@ public class BancoDeDados {
 		String driverConnection = "com.mysql.cj.jdbc.Driver";
 		
 		
+		
 		try {
 			Class.forName(driverConnection);
 			this.connection=DriverManager.getConnection(servidor, usuario, senha);
 			this.statement =  this.connection.createStatement();
+		    System.out.println("Conectou");
 			
 		} catch (Exception e) {
 			System.out.println("erro : " +  e.getMessage());
@@ -32,40 +37,47 @@ public class BancoDeDados {
 		if(this.connection != null ) {
 			return true;
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 	
-	public ArrayList<String> listLivros() {
+	public ArrayList<Livros> listLivros() {
 		
 		try {
 			String query = "select * from icarros.livros";
-			this.resultset=this.statement.executeQuery(query);
-			this.statement=this.connection.createStatement();
-			
-			
-			while(this.resultset.next()) {
-				String id_livro = resultset.getString("id_livro");
+			this.resultset = this.statement.executeQuery(query);
+			this.statement = this.connection.createStatement();
+			while (this.resultset.next()) {
+				int id_livro = resultset.getInt("id_livro");
 				String nome_livro = resultset.getString("nome_livro");
-				String age = resultset.getString("idade");
-				String email = resultset.getString("email");
-				String funcao = resultset.getString("funcao");
-				System.out.print("\nid: "+ id_livro + "| ");
-				System.out.print("nome: "+ nome_livro+ "| ");
-				arrayIdLivros.add(id_livro);
-				arrayNomeLivros.add(nome_livro);
-			
-			
-				
+				System.out.print("\nid: " + id_livro + "| ");
+				System.out.print("nome: " + nome_livro + "| ");
+				livros.add(new Livros(id_livro, nome_livro));
+
 			}
-			arrayTotal.addAll(arrayIdLivros);
-			arrayTotal.addAll(arrayNomeLivros);
-			
-			
-			
+
 		} catch (Exception e) {
 			System.out.println("Erro:." + e.getMessage());
 		}
-		 return arrayTotal;
+		return livros;
+	}
+public void insertLivros(String nome_livro, String data_lancamento, String autor_livro, String editora_livro) {
+		
+	try {
+		String sql = "INSERT INTO icarros.livros(nome_livro,data_lancamento,autor_livro,editora_livro) " + " VALUES(" + "'"
+				+ nome_livro + "'" + "," + "'" + data_lancamento + "'," + "'" + autor_livro + "'" + "," + "'"
+				+ editora_livro + "');";
+        System.out.println(sql);
+		
+      
+		this.statement.executeUpdate(sql);
+		
+		
+		} catch (Exception e) {
+			System.out.println("Erro:." + e.getMessage());
+		}
+		
 	}
 
 }
