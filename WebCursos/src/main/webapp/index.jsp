@@ -7,6 +7,17 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<style>
+.bg-light, .btn-primary {
+background-color: #6c5ce7 !important;
+}
+.navbar-light .navbar-brand, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link {
+color: #FFFFFF !important;
+}
+.navbar-light .navbar-toggler{
+ border: 2px solid #FFFFFF !important;
+}
+</style>
 <title>Pagina inicial</title>
 </head>
 <body>
@@ -29,10 +40,10 @@
             CRUD
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Pesquisar</a></li>
+            <li><a class="dropdown-item" href="pesquisar.jsp">Pesquisar</a></li>
             <li><a class="dropdown-item" href="inserir.jsp">Inserir</a></li>
-            <li><a class="dropdown-item" href="#">Modificar</a></li>
-             <li><a class="dropdown-item" href="#">Excluir</a></li>
+            <li><a class="dropdown-item" href="modificar.jsp">Modificar</a></li>
+             <li><a class="dropdown-item" href="excluir.jsp">Excluir</a></li>
             <li><hr class="dropdown-divider"></li>
        
           </ul>

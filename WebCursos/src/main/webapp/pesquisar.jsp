@@ -1,4 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="br.com.dao.BancoDeDados"%>
+<%@page import="com.br.DTO.Cursos"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -19,7 +22,7 @@ color: #FFFFFF !important;
  border: 2px solid #FFFFFF !important;
 }
 </style>
-<title>Inserir cursos</title>
+<title>Pesquisar Cursos</title>
 </head>
 <body>
 	<!-- Criando o Menu tipo NavBar -->
@@ -41,7 +44,7 @@ color: #FFFFFF !important;
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							CRUD </a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="pesquisar.jsp"">Pesquisar</a></li>
+							<li><a class="dropdown-item" href="pesquisar.jsp">Pesquisar</a></li>
 							<li><a class="dropdown-item" href="inserir.jsp">Inserir</a></li>
 							<li><a class="dropdown-item" href="modificar.jsp">Modificar</a></li>
 							<li><a class="dropdown-item" href="excluir.jsp">Excluir</a></li>
@@ -55,75 +58,74 @@ color: #FFFFFF !important;
 		<div class="row">
 			<div class=col-2></div>
 			<div class=col-8>
-			<br>
-			<br>
-			<form id="inserir" method="get">
-				<div class="input-group mb-3">
-					<label class="input-group-text" for="inputGroupSelect01">Cursos</label>
-					<select class="form-select" name="nomecursos">
-						<option selected>Escolha o seu curso...</option>
-						<option value="java">JAVA</option>
-						<option value="javascript">JavaScript</option>
-						<option value="c++">C++</option>
-						<option value="phython">Phython</option>
-						<option value="html">HTML</option>
-						<option value="css">CSS</option>
+				<div class="row">
+					<br> <br>
+					<!--  tabela de pesquisa -->
+					<table class="table caption-top">
+						<caption>Tabela de cursos</caption>
+						<thead>
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">Nome do curso</th>
+								<th scope="col">Data do curso</th>
+								<th scope="col">Hora do curso</th>
+								<th scope="col">Duração</th>
+								<th scope="col">Resumo</th>
+							</tr>
+						</thead>
+						<tbody>
+						<%
+							if (request.getParameter("submit") != null) {
+								BancoDeDados mysql = new BancoDeDados();
+								mysql.conectar();
+								List<Cursos> listaRetornadaMysql = new ArrayList<Cursos>();
+								listaRetornadaMysql = mysql.pesquisarCursos();					
+								int count =1;
+								for(Cursos c : listaRetornadaMysql ){
+									out.print("<tr>");
+									out.print("<th scope=\"row\">"+count+"</th>");
+									out.print("<td>"+c.getIdcurso()+" </td>");
+									out.print("<td>"+c.getDuracaocurso()+" </td>");
+									out.print("<td>"+c.getHoracurso()+" </td>");
+									out.print("<td>"+c.getNomecurso()+" </td>");
+									out.print("<td>"+c.getResumocurso()+" </td>");
+									out.print("</tr>");
+									count++;
+								}
+								
 
-					</select>
+							}
+							%>
+
+						</tbody>
+
+
+					</table>
+
+				</div>
+				<br><br>
+			
+				<!--  linha dois abaixo da tabela para botão pesquisar -->
+				<div class="row">
+				      <div class="col-5"></div>
+				      <div class="col-4">
+						<form method="get">
+							<button type="submit" name="submit" class="btn btn-primary">Pesquisar</button>
+							
+							
+						</form>
+					</div>
+				      
+				      <div class="col-3"></div>
+                     
 				</div>
 
-				<label for="inputPassword5" class="form-label">Data Curso</label> <input
-					type="date" name="datacurso" class="form-control"
-					aria-describedby="passwordHelpBlock"> <label
-					for="inputPassword5" class="form-label">Hora Curso</label> <input
-					type="time" name="horacurso" class="form-control"
-					aria-describedby="passwordHelpBlock"> <label
-					for="inputPassword5" class="form-label">Duração do Curso</label> <input
-					type="number" name="duracaocurso" class="form-control"
-					aria-describedby="passwordHelpBlock">
-
-				<div class="mb-3">
-					<label for="exampleFormControlTextarea1" class="form-label">Resumo
-						do Curso</label>
-					<textarea class="form-control" name="resumocurso" rows="3"></textarea>
-				</div>
-				<button type="submit" name="submit" class="btn btn-primary">Enviar</button>
-
-
-
-	        </form>
 			</div>
-			<div class=col-2></div>
 
 
 		</div>
-	</div>
-	<%
-	if(request.getParameter("submit") != null){
-		BancoDeDados mysql = new BancoDeDados();
-		mysql.conectar();
-		out.print(mysql.isConnected());
-			
-
-			String nomeCurso = request.getParameter("nomecursos");
-			String datacurso =  request.getParameter("datacurso");
-			String horacurso = request.getParameter("horacurso");
-			String duracaocurso = request.getParameter("duracaocurso");
-			String resumocurso = request.getParameter("resumocurso");
-			
-			out.print(nomeCurso);
-			out.print(datacurso);
-			out.print(horacurso);
-			out.print(duracaocurso);
-			out.print(resumocurso);
-
-			
-			mysql.inserirCursos(nomeCurso, datacurso, horacurso, duracaocurso, resumocurso);
-			out.print("Insert efetuado com sucesso");
-		
-		}
-	  
+		</div>
+			<div class=col-2></div>
 	
-	%>
 </body>
 </html>
