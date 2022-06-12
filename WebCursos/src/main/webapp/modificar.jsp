@@ -93,6 +93,9 @@ button.accept {
 	border: 2px solid #FFFFFF !important;
 }
 </style>
+<% 
+String id = request.getParameter("id_curso");
+%>
 <title>Modificar</title>
 </head>
 <body>
