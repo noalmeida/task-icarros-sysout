@@ -4,6 +4,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.com.dao.BancoDeDados"%>
 <%@page import="com.br.DTO.Cursos"%>
+<%@ page import="java.sql.*" %> 
+<%@ page import="java.io.*" %> 
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,8 +99,81 @@ button.accept {
 	border: 2px solid #FFFFFF !important;
 }
 </style>
-<% 
+<%
 String id = request.getParameter("id_curso");
+out.print("<p>"+id+"</p>");
+
+
+String driver = "com.mysql.cj.jdbc.Driver";
+String connectionUrl = "jdbc:mysql://localhost/icarros";
+String userid = "root";
+String password = "admin";
+
+
+		if(id != null) {
+	
+			String id_curso = request.getParameter("id_curso");
+			String nome_curso=request.getParameter("nome_curso");
+			String data_curso=request.getParameter("data_curso");
+			String hora_curso=request.getParameter("hora_curso");
+			String duracao_curso=request.getParameter("duracao_curso");
+			String resumo_curso=request.getParameter("resumo_curso");
+			String n = request.getParameter("nome_curso");
+			out.print("<p>"+n+"</p>");
+			String d = request.getParameter("data_curso");
+			out.print("<p>"+d+"</p>");
+			String h = request.getParameter("hora_curso");
+			out.print("<p>"+h+"</p>");
+			String r = request.getParameter("resumo_curso");
+			out.print("<p>"+r+"</p>");
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+	
+		try
+           {
+			Class.forName(driver);
+			con = DriverManager.getConnection(connectionUrl,userid,password);
+			String sql="Update cursos set id_curso=?, nome_curso=?, data_curso=?, hora_curso=?, duracao_curso=?, resumo_curso=? where id_curso="+id;
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id_curso);
+			ps.setString(2, nome_curso);
+			ps.setString(3, data_curso);
+			ps.setString(4, hora_curso);
+			ps.setString(5, duracao_curso);
+			ps.setString(6, resumo_curso);
+            int i = ps.executeUpdate();
+				if(i > 0){
+	                out.print("<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">");
+	                out.print("<strong>Registro atualizado</strong> com sucesso!");
+	                out.print("</div>");
+						}
+						else
+						{
+							 out.print("<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">");
+						     out.print("<strong>Há um problema com a atualização!</strong> Não foi possível!");
+						     out.print("</div>");
+						} 
+				}
+			catch(SQLException sql)
+			{
+			request.setAttribute("error", sql);
+			out.println(sql);
+			}
+		}
+		else {
+			try {
+				Class.forName(driver);
+				} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				}
+				Connection connection = null;
+				Statement statement = null;
+				ResultSet resultSet = null;
+		
+
+
 %>
 <title>Modificar</title>
 </head>
@@ -133,76 +212,47 @@ String id = request.getParameter("id_curso");
 			<div class=col-2></div>
 			<div class=col-8>
 				<div class="row">
-					<br> <br>
+					<table class="table">
+					 <thead>
+						<tr>
+							<th scope="col">#ID</th>
+							<th scope="col">Nome do curso</th>
+							<th scope="col">Data do curso</th>
+							<th scope="col">Hora do curso</th>
+							<th scope="col">Duração do curso</th>
+							<th scope="col">Resumo do Curso</th>
+							<th scope="col">Ação</th>
+						</tr>
+					 </thead>
+					 <tbody>
 					<%
-					BancoDeDados mysql = new BancoDeDados();
-											mysql.conectar();
-											if(mysql.isConnected() && mysql.pesquisarCursos().size()!= 0){
-												out.print(mysql.pesquisarCursos().size());
-												List<Cursos> listaRetornadaMysql = new ArrayList<Cursos>();
-												listaRetornadaMysql = mysql.pesquisarCursos();					
-												int count =1;
-												out.print("<table class=\"table caption-top\">");
-												out.print("<caption>Tabela de cursos</caption>");
-												out.print("<thead>");
-												out.print("<tr>");
-												out.print("<th scope=\"col\">#ID</th>");
-												out.print("<th scope=\"col\">Nome do curso</th>");
-												out.print("<th scope=\"col\">Data do curso</th>");
-												out.print("<th scope=\"col\">Hora do curso</th>");
-												out.print("<th scope=\"col\">Duração</th>");
-												out.print("<th scope=\"col\">Resumo</th>");
-												out.print("<th scope=\"col\">Ação</th>");
-												out.print("</tr>");
-												out.print("</thead>");
-												out.print("<tbody>");					
-												for(Cursos c : listaRetornadaMysql ){
-													out.print("<tr>");
-													out.print("<th scope=\"row\">"+count+"</th>");
-													out.print("<td>"+c.getIdcurso()+" </td>");
-													out.print("<td>"+c.getDuracaocurso()+" </td>");
-													out.print("<td>"+c.getHoracurso()+" </td>");
-													out.print("<td>"+c.getNomecurso()+" </td>");
-													out.print("<td>"+c.getResumocurso()+" </td>");
-													out.print("<td><form method=\"get\"><button type=\"submit\" name=\"submit\" class=\"btn btn-secondary\">Modificar</button></form></td>");
-													out.print("</tr>");
-													count++;
-												}
-												out.print("</tbody>");
-												out.print("</table>");
-												out.print("</div>");
-												//  linha dois abaixo da tabela para botão
-												out.print("<div class=\"row\">");
-												    out.print("<div class=\"col-5\"></div>");
-												    out.print("<div class=\"col-4\">");
-												    out.print("<br><br>");
-												    if(request.getParameter("submit") != null){
-												    
-												    	
-												    	
-												    }
-												
-												      
-												
-												} else {
-
-													out.print("<div class=\"containerModal\">");
-													out.print("<div class=\"cookiesContent\" id=\"cookiesPopup\">");
-													out.print(
-															"<img class=\"imagemmodal\" src=\"https://cdn-icons-png.flaticon.com/512/1047/1047711.png\" alt=\"cookies-img\"  width=\"75\" height=\"75\"/>");
-													out.print("<br><br>");
-													out.print("<p class=\"modal-text\">Não há cursos a serem modificados.</p>");
-													out.print("</div>");
-													out.print("</div>");
-
-												}
-					%>
-
-
-
-
-
-
+					
+					try{
+						connection = DriverManager.getConnection(connectionUrl, userid, password);
+						statement=connection.createStatement();
+						String sql ="select * from cursos";
+						resultSet = statement.executeQuery(sql);
+						while(resultSet.next()){
+                    %>
+                     
+                       <tr>
+							<td><%=resultSet.getString("id_curso") %></td>
+							<td><%=resultSet.getString("nome_curso") %></td>
+							<td><%=resultSet.getString("data_curso") %></td>
+							<td><%=resultSet.getString("hora_curso") %></td>
+							<td><%=resultSet.getString("duracao_curso") %></td>
+							<td><%=resultSet.getString("resumo_curso") %></td>
+							<td><a href="inserir-update.jsp?id=<%=resultSet.getString("id_curso")%>">Modificar</a></td>
+						</tr>
+						<%
+						}
+						
+						} catch (Exception e) {
+						e.printStackTrace();
+						}}
+						%>
+				</tbody>
+				</table>
 				</div>
 
 

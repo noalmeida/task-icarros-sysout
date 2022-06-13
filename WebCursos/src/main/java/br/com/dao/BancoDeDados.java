@@ -12,6 +12,8 @@ public class BancoDeDados {
 	private Connection connection = null;
 	private java.sql.Statement statement = null;
 	private ResultSet resultset=null;
+	
+    Cursos cursoSelecionado = new Cursos();
 
 	
 	
@@ -87,4 +89,42 @@ public void inserirCursos(String nome_curso, String data_curso, String hora_curs
 
 	}
 
+	public  ResultSet returStatmentSelect() {
+		try {
+			String sql = "select * from icarros.cursos ";
+			  resultset = this.statement.executeQuery(sql);
+			
+
+		} catch (Exception e) {
+			System.out.println("Erro:." + e.getMessage());
+		}
+		 return resultset;
+	}
+	
+	public Cursos pesquisaPorId(Integer id) {
+		try {
+			String sql = "select * from icarros.cursos WHERE id_cursos="+id+";";
+			  resultset = this.statement.executeQuery(sql);
+			  
+			 
+			    cursoSelecionado.setIdcurso(id);
+			    cursoSelecionado.setNomecurso(((ResultSet) this.statement).getString("nome_curso"));
+			    cursoSelecionado.setDatacurso(((ResultSet) this.statement).getString("data_curso"));
+			    cursoSelecionado.setDuracaocurso(((ResultSet) this.statement).getString("duracao_curso"));
+			    cursoSelecionado.setHoracurso(((ResultSet) this.statement).getString("hora_curso"));
+			    cursoSelecionado.setResumocurso(((ResultSet) this.statement).getString("resumo_curso"));
+			
+
+		} catch (Exception e) {
+			System.out.println("Erro:." + e.getMessage());
+		}
+		return cursoSelecionado;
+		
+	}
+		
+	
+	
+	
+	
+	
 }

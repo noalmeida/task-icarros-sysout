@@ -1,6 +1,31 @@
-<%@page import="br.com.dao.BancoDeDados"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%
+
+String id = request.getParameter("id");
+String driver = "com.mysql.cj.jdbc.Driver";
+String connectionUrl = "jdbc:mysql://localhost/icarros";
+String userid = "root";
+String password = "admin";
+try {
+Class.forName(driver);
+} catch (ClassNotFoundException e) {
+e.printStackTrace();
+}
+Connection connection = null;
+Statement statement = null;
+ResultSet resultSet = null;
+%>
+<%
+try{
+connection = DriverManager.getConnection(connectionUrl, userid, password);
+statement=connection.createStatement();
+String sql ="select * from cursos where id_curso="+id;
+resultSet = statement.executeQuery(sql);
+while(resultSet.next()){
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,69 +75,55 @@ color: #FFFFFF !important;
 			</div>
 		</div>
 	</nav>
-	<div class="container">
+	<br>
+		<div class="container">
 		<div class="row">
 			<div class=col-2></div>
 			<div class=col-8>
 			<br>
 			<br>
-			<form id="inserir" method="get">
+			<form method="post" action="modificar.jsp">
+			  <input type="hidden" name="id_curso" value="<%=resultSet.getString("id_curso") %>">
 				<div class="input-group mb-3">
 					<label class="input-group-text" for="inputGroupSelect01">Cursos</label>
 					<select class="form-select" name="nomecursos">
+			
 						<option selected>Escolha o seu curso...</option>
-						<option value="java">JAVA</option>
-						<option value="javascript">JavaScript</option>
-						<option value="c++">C++</option>
-						<option value="phython">Phython</option>
-						<option value="html">HTML</option>
-						<option value="css">CSS</option>
+						<option <%=resultSet.getString("nome_curso").equals("java") ? "selected" : ""%> value="java">JAVA</option>
+						<option <%=resultSet.getString("nome_curso").equals("javascript") ? "selected" : ""%> value="javascript">JavaScript</option>
+						<option <%=resultSet.getString("nome_curso").equals("c++") ? "selected" : ""%> value="c++">C++</option>
+						<option <%=resultSet.getString("nome_curso").equals("phython") ? "selected" : ""%> value="phython">Phython</option>
+						<option <%=resultSet.getString("nome_curso").equals("html") ? "selected" : ""%> value="html">HTML</option>
+						<option <%=resultSet.getString("nome_curso").equals("css") ? "selected" : ""%> value="css">CSS</option>
 					</select>
 				</div>
-				<label for="inputPassword5" class="form-label">Data Curso</label> <input
-					type="date" name="datacurso" class="form-control"
+				<label for="inputPassword5" class="form-label">Data Curso</label><input
+					type="date" name="datacurso" class="form-control" value="<%=resultSet.getString("data_curso")%>"
 					aria-describedby="passwordHelpBlock"> <label
-					for="inputPassword5" class="form-label">Hora Curso</label> <input
-					type="time" name="horacurso" class="form-control"
+					for="inputPassword5" class="form-label">Hora Curso</label><input
+					type="time" name="horacurso" class="form-control" value="<%=resultSet.getString("hora_curso")%>"
 					aria-describedby="passwordHelpBlock"> <label
-					for="inputPassword5" class="form-label">Duração do Curso</label> <input
-					type="number" name="duracaocurso" class="form-control"
+					for="inputPassword5" class="form-label">Duração do Curso</label><input
+					type="number" name="duracaocurso" class="form-control" value="<%=resultSet.getString("duracao_curso")%>"
 					aria-describedby="passwordHelpBlock">
 				<div class="mb-3">
 					<label for="exampleFormControlTextarea1" class="form-label">Resumo
 						do Curso</label>
-					<textarea class="form-control" name="resumocurso" rows="3"></textarea>
+					<textarea class="form-control" name="resumocurso" rows="3"><%=resultSet.getString("resumo_curso")%></textarea>
 				</div>
-				<button type="submit" name="submit" class="btn btn-primary">Enviar</button>
+				<input type="submit" value="Enviar" class="btn btn-primary">
 	        </form>
 			</div>
 			<div class=col-2></div>
 		</div>
 	</div>
+
 	<%
-	if(request.getParameter("submit") != null){
-		BancoDeDados mysql = new BancoDeDados();
-		mysql.conectar();
-		out.print(mysql.isConnected());
-			
-			String nomeCurso = request.getParameter("nomecursos");
-			String datacurso =  request.getParameter("datacurso");
-			String horacurso = request.getParameter("horacurso");
-			String duracaocurso = request.getParameter("duracaocurso");
-			String resumocurso = request.getParameter("resumocurso");
-			
-			out.print(nomeCurso);
-			out.print(datacurso);
-			out.print(horacurso);
-			out.print(duracaocurso);
-			out.print(resumocurso);
-			
-			mysql.inserirCursos(nomeCurso, datacurso, horacurso, duracaocurso, resumocurso);
-			out.print("Insert efetuado com sucesso");
-		
-		}
-	  
-	
+	}
+	connection.close();
+	} catch (Exception e) {
+	e.printStackTrace();
+	}
 	%>
 </body>
 </html>

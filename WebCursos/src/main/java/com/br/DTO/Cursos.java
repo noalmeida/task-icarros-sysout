@@ -11,6 +11,20 @@ public class Cursos {
 	
 	
 	
+	public Cursos(int idcurso, String nomecurso, String datacurso, String horacurso, String duracaocurso,
+			String resumocurso) {
+		super();
+		this.idcurso = idcurso;
+		this.nomecurso = nomecurso;
+		this.datacurso = datacurso;
+		this.horacurso = horacurso;
+		this.duracaocurso = duracaocurso;
+		this.resumocurso = resumocurso;
+	}
+	public Cursos() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdcurso() {
 		return idcurso;
 	}
